@@ -1,4 +1,4 @@
-FROM Ubuntu:latest
+FROM ubuntu:latest
 WORKDIR /app
 COPY package*.json ./
 RUN apt-get update && \
@@ -11,4 +11,4 @@ RUN node -v && npm -v
 RUN npm install
 COPY . .
 EXPOSE 3000
-CMD [ "npm","run","dev" ]
+CMD [ "npm","start" ]
