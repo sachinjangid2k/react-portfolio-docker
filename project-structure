@@ -1,0 +1,19 @@
+src/
+  ├── components/
+  │   ├── Hero.js
+  │   ├── Skills.js
+  │   ├── Experience.js
+  │   ├── Certifications.js
+  │   ├── Contact.js
+  │   ├── ThemeToggle.js
+  │   └── Navigation.js
+  ├── styles/
+  │   ├── GlobalStyles.js
+  │   └── Theme.js
+  ├── assets/
+  │   └── svg/
+  │       ├── CloudIcon.js
+  │       ├── AutomationIcon.js
+  │       └── DevOpsIcon.js
+  ├── App.js
+  └── index.js 
