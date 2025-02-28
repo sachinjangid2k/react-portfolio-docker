@@ -1,32 +1,23 @@
-# Build stage
-FROM node:18-alpine as build
-
-# Set working directory
+# Build Stage
+FROM ubuntu:latest as build
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
+RUN apt-get update && \
+    apt-get install -y curl gnupg2 && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+RUN node -v && npm -v
 RUN npm install
-
-# Copy project files
 COPY . .
-
-# Build the app
 RUN npm run build
 
-# Production stage
+# Final Stage
+#FROM gcr.io/distroless/nodejs18-debian12
 FROM nginx:alpine
 
-# Copy built assets from build stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy nginx configuration (optional, if you need custom nginx settings)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"] 
+EXPOSE 3000
+ENTRYPOINT ["nginx", "-g", "daemon off;"] 
